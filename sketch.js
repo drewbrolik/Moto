@@ -10,10 +10,6 @@ var
   rotateXamt,
   spinDir;
 
-// // //
-// p5.js functions
-// // //
-
 function setup() {
   // initial canvas setup
   createCanvas(windowWidth, windowHeight, WEBGL);
@@ -39,7 +35,7 @@ function setup() {
   // set random values for global variables  
   totalLayers = R.random_num(400,600),
   spaceBetweenTracks = R.random_num(2,41),
-  hhue = floor(R.random_num(0,361)),
+  hhue = Math.floor(R.random_num(0,361)),
   centerX = R.random_num(-width*.5,width*.5),
   centerY = R.random_num(-width*.5,width*.5);
   rotateXamt = Math.floor(R.random_num(200,1001));
@@ -91,10 +87,6 @@ function windowResized() {
     canvasElement.style.height = "auto";
   }
 }
-
-// // //
-// non-p5.js functions
-// // //
 
 function drawTireTrack(x, y) {
   let trackWidth = R.random_num(10,30); //20;

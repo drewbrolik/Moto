@@ -70,12 +70,35 @@ function calculateFeatures(tokenData) {
   var featureResponse = {}
 
   var
-    totalLayers,
+    totalLayers = 80,
+    spaceBetweenTracks = 10,
+    hhue = 0,
+    centerX = 0,
+    centerY = 0,
+    rotateXamt,
+    spinDir;
     R = new Random();
 
   // set random values for global variables
-  totalLayers = R.random_num(1,10)
-  featureResponse["Total Layers"] = totalLayers)+"";
+  totalLayers = R.random_num(400,600)
+  featureResponse["Total Layers"] = totalLayers+"";
+
+  spaceBetweenTracks = R.random_num(2,41),
+  featureResponse["Spacing"] = spaceBetweenTracks+"";
+  
+  hhue = Math.floor(R.random_num(0,361)),
+  featureResponse["Starting Hue"] = hhue+"";
+
+  /*centerX = R.random_num(-width*.5,width*.5),
+  featureResponse["X"] = centerX+"";
+
+  centerY = R.random_num(-width*.5,width*.5);
+  featureResponse["Y"] = centerY+"";*/
+
+  rotateXamt = Math.floor(R.random_num(200,1001));
+  spinDir = Math.round(R.random_num(0,1));
+  if (spinDir < .5) { rotateXamt *= -1; }
+  featureResponse["Rotate X Amt"] = rotateXamt+"";
   
   return featureResponse;
 
