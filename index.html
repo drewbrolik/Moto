@@ -1,0 +1,34 @@
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.8.0/lib/p5.js"></script>
+    <script>
+    const tokenData = {
+      "hash": generateRandomHash(),
+      "tokenId":"0",
+      "externalAssetDependencies":[],
+      "preferredIPFSGateway":"https://ipfs.prohibition.art/ipfs/",
+      "preferredArweaveGateway":"https://arweave.net/"
+    }
+    // function to generate a hash outside of Prohibition's editor
+    // not needed inside Prohibition's editor
+    function generateRandomHash() {
+      const characters = '0123456789abcdef';
+      let hash = '0x';
+
+      for (let i = 0; i < 64; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        hash += characters.charAt(randomIndex);
+      }
+      
+      console.log(hash);
+      return hash;
+    }
+    </script>
+    <script src="sketch.js"></script>
+  </head>
+  <body>
+    <main>
+    </main>
+    <button onclick="location.reload();">Reload</button>
+  </body>
+</html>
