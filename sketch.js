@@ -1,7 +1,7 @@
 // declare variables that will be used globally
 var
   currentLayer = 1,
-  totalLayers = 80,
+  totalLayers,
   spaceBetweenTracks = 10,
   hhue = 0,
   R,
@@ -33,7 +33,7 @@ function setup() {
   cam.move(R.random_num(width*-.5,width*.5),R.random_num(width*-.5,width*.5),R.random_num(width*-.25,width*.25));
 
   // set random values for global variables  
-  totalLayers = R.random_num(400,600),
+  totalLayers = Math.floor(R.random_num(400,601)),
   spaceBetweenTracks = R.random_num(2,41),
   hhue = Math.floor(R.random_num(0,361)),
   centerX = R.random_num(-width*.5,width*.5),
@@ -47,17 +47,16 @@ function setup() {
   background(backgroundColor);
   
   // expand background color full screen, outside of canvas
-  var backgroundColor_hex = backgroundColor.replace("HSB(","").replace(")","").replaceAll("%","").split(",");
-  canvasElement.parentElement.style.backgroundColor = backgroundColor.indexOf("rgb") > -1 ? backgroundColor : hsbToHex(backgroundColor_hex[0],backgroundColor_hex[1],backgroundColor_hex[2]);
+  canvasElement.parentElement.style.backgroundColor = backgroundColor;
   
 }
 
 function draw() {
-  if (currentLayer > totalLayers) {
+  if (currentLayer >= totalLayers) {
     noLoop();
   } else {
     stroke("hsb("+hhue+",80%,80%)");
-    strokeWeight(1);
+    strokeWeight((width >= height) ? width/1663 : height/1663);
     fill("hsb("+hhue+",80%,20%)");
     rotateZ(R.random_num(0,10));
     rotateX(rotateXamt*-1);
@@ -71,7 +70,7 @@ function draw() {
 function keyTyped() {
   
   if (key === 's') {
-    save(invocation+'.png');
+    save(invocation+'_'+currentLayer+'of'+totalLayers+'.png');
   }
   
 }
@@ -190,19 +189,4 @@ class Random {
   random_choice(list) {
     return list[this.random_int(0, list.length - 1)];
   }
-}
-
-//
-function hsbToHex(h, s, b) {
-    s /= 100;
-    b /= 100;
-
-    let k = (n) => (n + h / 60) % 6;
-    let f = (n) => b - b * s * Math.max(Math.min(k(n), 4 - k(n), 1), 0);
-
-    let r = Math.round(f(5) * 255);
-    let g = Math.round(f(3) * 255);
-    let bb = Math.round(f(1) * 255);
-
-    return "#" + [r, g, bb].map(x => x.toString(16).padStart(2, '0')).join('');
 }

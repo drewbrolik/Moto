@@ -70,7 +70,7 @@ function calculateFeatures(tokenData) {
   var featureResponse = {}
 
   var
-    totalLayers = 80,
+    totalLayers,
     spaceBetweenTracks = 10,
     hhue = 0,
     centerX = 0,
@@ -80,7 +80,7 @@ function calculateFeatures(tokenData) {
     R = new Random();
 
   // set random values for global variables
-  totalLayers = R.random_num(400,600)
+  totalLayers = Math.floor(R.random_num(400,601));
   featureResponse["Total Layers"] = totalLayers+"";
 
   spaceBetweenTracks = R.random_num(2,41),
