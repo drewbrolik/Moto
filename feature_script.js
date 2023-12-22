@@ -84,10 +84,11 @@ function calculateFeatures(tokenData) {
   featureResponse["Total Layers"] = totalLayers+"";
 
   spaceBetweenTracks = R.random_num(2,41),
-  featureResponse["Spacing"] = spaceBetweenTracks+"";
+  featureResponse["Spacing"] = Math.round(spaceBetweenTracks)+"";
   
   hhue = Math.floor(R.random_num(0,361)),
   featureResponse["Starting Hue"] = hhue+"";
+  featureResponse["Stopping Hue"] = ((hhue+totalLayers)%360)+"";
 
   /*centerX = R.random_num(-width*.5,width*.5),
   featureResponse["X"] = centerX+"";

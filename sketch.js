@@ -28,9 +28,6 @@ function setup() {
 
   // instance of Random class
   R = new Random();
-  
-  cam = createCamera();
-  cam.move(R.random_num(width*-.5,width*.5),R.random_num(width*-.5,width*.5),R.random_num(width*-.25,width*.25));
 
   // set random values for global variables  
   totalLayers = Math.floor(R.random_num(400,601)),
@@ -41,6 +38,9 @@ function setup() {
   rotateXamt = Math.floor(R.random_num(200,1001));
   spinDir = Math.round(R.random_num(0,1));
   if (spinDir < .5) { rotateXamt *= -1; }
+
+  cam = createCamera();
+  cam.move(R.random_num(width*-.5,width*.5),R.random_num(width*-.5,width*.5),R.random_num(width*-.25,width*.25));
 
   // background color
   backgroundColor = "rgb(13,13,13)";
@@ -70,7 +70,7 @@ function draw() {
 function keyTyped() {
   
   if (key === 's') {
-    save(invocation+'_'+currentLayer+'of'+totalLayers+'.png');
+    save(invocation+'_layer'+currentLayer+'_'+width+'x'+height+'.png');
   }
   
 }
@@ -90,7 +90,6 @@ function windowResized() {
 function drawTireTrack(x, y) {
   let trackWidth = R.random_num(10,30); //20;
   let trackHeight = 5;
-  //let spaceBetweenTracks = 10;
   
   for (let i = 0; i < 5; i++) {
     // main
@@ -101,13 +100,6 @@ function drawTireTrack(x, y) {
     vertex(x,y + i * (trackHeight + spaceBetweenTracks)+trackHeight);
     endShape(CLOSE);
     
-    // center
-    /*beginShape();
-    vertex(-x,y + i * (trackHeight + spaceBetweenTracks));
-    vertex(-x+trackWidth,y + i * (trackHeight + spaceBetweenTracks)-(spaceBetweenTracks*.5));
-    vertex(-x+trackWidth,y + i * (trackHeight + spaceBetweenTracks)+trackHeight-(spaceBetweenTracks*.5));
-    vertex(-x,y + i * (trackHeight + spaceBetweenTracks)+trackHeight);
-    endShape(CLOSE);*/
   }
 }
 
@@ -118,15 +110,6 @@ function drawTireTracks() {
     drawTireTrack(x+R.random_num(0,width), height / 2 - 10);
     drawTireTrack(x+R.random_num(0,width), height / 2 + 30);
   }
-  
-  var ccolor = color("hsb("+hhue+",30%,100%)");
-  ccolor.setAlpha(255);
-  stroke(0);
-  strokeWeight(R.random_num(1,6));
-  
-  /*line(R.random_num(width*-1,width),width*.5,R.random_num(width,width*4),width*.5);
-  line(R.random_num(width*-1,width),width*.5,R.random_num(width,width*4),width*.5);
-  line(R.random_num(width*-1,width),width*.5,R.random_num(width,width*4),width*.5);*/
   
 }
 
