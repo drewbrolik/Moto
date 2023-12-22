@@ -87,19 +87,22 @@ function calculateFeatures(tokenData) {
   featureResponse["Spacing"] = Math.round(spaceBetweenTracks)+"";
   
   hhue = Math.floor(R.random_num(0,361)),
-  featureResponse["Starting Hue"] = hhue+"";
-  featureResponse["Stopping Hue"] = ((hhue+totalLayers)%360)+"";
-
-  /*centerX = R.random_num(-width*.5,width*.5),
-  featureResponse["X"] = centerX+"";
-
-  centerY = R.random_num(-width*.5,width*.5);
-  featureResponse["Y"] = centerY+"";*/
+  featureResponse["Birth Color"] = hhue+"";
+  featureResponse["Present Color"] = ((hhue+totalLayers)%360)+"";
 
   rotateXamt = Math.floor(R.random_num(200,1001));
   spinDir = Math.round(R.random_num(0,1));
   if (spinDir < .5) { rotateXamt *= -1; }
   featureResponse["Rotate X Amt"] = rotateXamt+"";
+
+  /*var windowWidth = 1000;
+  centerX = R.random_num(-windowWidth*.5,windowWidth*.5),
+  centerY = R.random_num(-windowWidth*.5,windowWidth*.5);
+  camMoveX = R.random_num(windowWidth*-.5,windowWidth*.5);
+  camMoveY = R.random_num(windowWidth*-.5,windowWidth*.5);
+  camMoveZ = R.random_num(windowWidth*-.25,windowWidth*.25);
+
+  featureResponse["Cam Move Z"] = camMoveZ+"";*/
   
   return featureResponse;
 

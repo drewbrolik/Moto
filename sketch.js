@@ -33,14 +33,20 @@ function setup() {
   totalLayers = Math.floor(R.random_num(400,601)),
   spaceBetweenTracks = R.random_num(2,41),
   hhue = Math.floor(R.random_num(0,361)),
-  centerX = R.random_num(-width*.5,width*.5),
-  centerY = R.random_num(-width*.5,width*.5);
   rotateXamt = Math.floor(R.random_num(200,1001));
   spinDir = Math.round(R.random_num(0,1));
   if (spinDir < .5) { rotateXamt *= -1; }
 
+  // this is what makes it different outcomes at different screen sizes
+  centerX = R.random_num(-width*.5,width*.5),
+  centerY = R.random_num(-width*.5,width*.5);
+  camMoveX = R.random_num(width*-.5,width*.5);
+  camMoveY = R.random_num(width*-.5,width*.5);
+  camMoveZ = R.random_num(width*-.25,width*.25);
+
   cam = createCamera();
-  cam.move(R.random_num(width*-.5,width*.5),R.random_num(width*-.5,width*.5),R.random_num(width*-.25,width*.25));
+  cam.move(camMoveX,camMoveY,camMoveZ);
+  console.log(camMoveX,camMoveY,camMoveZ);
 
   // background color
   backgroundColor = "rgb(13,13,13)";
