@@ -8,7 +8,8 @@ var
   centerX = 0,
   centerY = 0,
   rotateXamt,
-  spinDir;
+  spinDir,
+  blurriness;
 
 function setup() {
   // initial canvas setup
@@ -37,6 +38,11 @@ function setup() {
   spinDir = Math.round(R.random_num(0,1));
   if (spinDir < .5) { rotateXamt *= -1; }
 
+  //blurriness = R.random_num(.5,1);
+  blurriness = (width>=height) ? width/1663 : height/1663;
+  spaceBetweenTracks = blurriness*spaceBetweenTracks;
+  //blurriness = 1;
+
   // this is what makes it different outcomes at different screen sizes
   centerX = R.random_num(-width*.5,width*.5),
   centerY = R.random_num(-width*.5,width*.5);
@@ -46,7 +52,6 @@ function setup() {
 
   cam = createCamera();
   cam.move(camMoveX,camMoveY,camMoveZ);
-  console.log(camMoveX,camMoveY,camMoveZ);
 
   // background color
   backgroundColor = "rgb(13,13,13)";
@@ -95,26 +100,30 @@ function windowResized() {
 
 function drawTireTrack(x, y) {
   let trackWidth = R.random_num(10,30); //20;
-  let trackHeight = 5;
+  //trackWidth = (width>=height) ? width/1663*trackWidth : height/1663*trackWidth;
+  trackWidth = blurriness*trackWidth;
+  //let trackHeight = 5;
+  let trackHeight = blurriness*5;
   
   for (let i = 0; i < 5; i++) {
     // main
     beginShape();
-    vertex(x,y + i * (trackHeight + spaceBetweenTracks));
-    vertex(x+trackWidth,y + i * (trackHeight + spaceBetweenTracks)-(spaceBetweenTracks*.5));
-    vertex(x+trackWidth,y + i * (trackHeight + spaceBetweenTracks)+trackHeight-(spaceBetweenTracks*.5));
-    vertex(x,y + i * (trackHeight + spaceBetweenTracks)+trackHeight);
+    vertex(x,y + blurriness*i * (trackHeight + spaceBetweenTracks));
+    vertex(x+trackWidth,y + blurriness*i * (trackHeight + spaceBetweenTracks)-(spaceBetweenTracks*.5));
+    vertex(x+trackWidth,y + blurriness*i * (trackHeight + spaceBetweenTracks)+trackHeight-(spaceBetweenTracks*.5));
+    vertex(x,y + blurriness*i * (trackHeight + spaceBetweenTracks)+trackHeight);
     endShape(CLOSE);
     
   }
 }
 
 function drawTireTracks() {
-  let spacing = 40; // Spacing between each tire track
-  
+  //let spacing = 40; // Spacing between each tire track
+  let spacing = blurriness*40;
+
   for (let x = 0; x < width; x += spacing) {
-    drawTireTrack(x+R.random_num(0,width), height / 2 - 10);
-    drawTireTrack(x+R.random_num(0,width), height / 2 + 30);
+    drawTireTrack(x+R.random_num(0,width), height / 2 - (blurriness*10));
+    drawTireTrack(x+R.random_num(0,width), height / 2 + (blurriness*30));
   }
   
 }

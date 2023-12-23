@@ -73,27 +73,38 @@ function calculateFeatures(tokenData) {
     totalLayers,
     spaceBetweenTracks = 10,
     hhue = 0,
-    centerX = 0,
-    centerY = 0,
+    //centerX = 0,
+    //centerY = 0,
     rotateXamt,
-    spinDir;
+    spinDir,
+    blurriness,
     R = new Random();
 
   // set random values for global variables
   totalLayers = Math.floor(R.random_num(400,601));
   featureResponse["Total Layers"] = totalLayers+"";
 
-  spaceBetweenTracks = R.random_num(2,41),
-  featureResponse["Spacing"] = Math.round(spaceBetweenTracks)+"";
-  
-  hhue = Math.floor(R.random_num(0,361)),
-  featureResponse["Birth Color"] = hhue+"";
-  featureResponse["Present Color"] = ((hhue+totalLayers)%360)+"";
+  spaceBetweenTracks = R.random_num(2,41);
+  if (spaceBetweenTracks < 14) {
+    featureResponse["Spacing"] = "Tight";
+  } else if (spaceBetweenTracks < 28) {
+    featureResponse["Spacing"] = "Normal";
+  } else {
+    featureResponse["Spacing"] = "Open";
+  }
+  hhue = Math.floor(R.random_num(0,361));
+  var birthColorName = hueToColor(hhue);
+  featureResponse["Birth Color Family"] = hhue+" ("+birthColorName+")";
+  var presentColorName = hueToColor((hhue+totalLayers)%360);
+  featureResponse["Present Color Family"] = ((hhue+totalLayers)%360)+" ("+presentColorName+")";
 
   rotateXamt = Math.floor(R.random_num(200,1001));
   spinDir = Math.round(R.random_num(0,1));
   if (spinDir < .5) { rotateXamt *= -1; }
-  featureResponse["Rotate X Amt"] = rotateXamt+"";
+  //featureResponse["Rotate X Amt"] = rotateXamt+"";
+
+  //blurriness = R.random_num(.5,1);
+  //featureResponse["Blurriness"] = blurriness+"";
 
   /*var windowWidth = 1000;
   centerX = R.random_num(-windowWidth*.5,windowWidth*.5),
@@ -105,5 +116,28 @@ function calculateFeatures(tokenData) {
   featureResponse["Cam Move Z"] = camMoveZ+"";*/
   
   return featureResponse;
+
+  function hueToColor(hue) {
+    var colorName;
+    if (hue < 10) {
+      colorName = "Il rosso"; // "Red";
+    } else if (hue < 30) {
+      colorName = "L’arancione"; // "Orange";
+    } else if (hue < 55) {
+      colorName = "Il giallo"; // "Yellow";
+    } else if (hue < 160) {
+      colorName = "Il verde"; // "Green";
+    } else if (hue < 240) {
+      colorName = "Il blu"; // "Blue";
+    } else if (hue < 290) {
+      colorName = "Il viola"; // "Purple";
+    } else if (hue < 330) {
+      colorName = "Il rosa"; // "Pink";
+    } else {
+      colorName = "Il rosso"; // "Red";
+    }
+
+    return colorName;
+  }
 
 }
