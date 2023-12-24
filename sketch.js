@@ -39,7 +39,7 @@ function setup() {
   if (spinDir < .5) { rotateXamt *= -1; }
 
   //blurriness = R.random_num(.5,1);
-  blurriness = (width>=height) ? width/1663 : height/1663;
+  blurriness = (width>=height) ? width/1000 : height/1000;
   spaceBetweenTracks = blurriness*spaceBetweenTracks;
   //blurriness = 1;
 
@@ -67,7 +67,7 @@ function draw() {
     noLoop();
   } else {
     stroke("hsb("+hhue+",80%,80%)");
-    strokeWeight((width >= height) ? width/1663 : height/1663);
+    strokeWeight(blurriness);
     fill("hsb("+hhue+",80%,20%)");
     rotateZ(R.random_num(0,10));
     rotateX(rotateXamt*-1);

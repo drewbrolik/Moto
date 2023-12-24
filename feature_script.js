@@ -82,21 +82,21 @@ function calculateFeatures(tokenData) {
 
   // set random values for global variables
   totalLayers = Math.floor(R.random_num(400,601));
-  featureResponse["Total Layers"] = totalLayers+"";
+  featureResponse["Layers"] = totalLayers+"";
 
   spaceBetweenTracks = R.random_num(2,41);
   if (spaceBetweenTracks < 14) {
-    featureResponse["Spacing"] = "Tight";
+    featureResponse["Tracking"] = "Stretto"; // "Tight";
   } else if (spaceBetweenTracks < 28) {
-    featureResponse["Spacing"] = "Normal";
+    featureResponse["Tracking"] = "Normale"; // "Normal"
   } else {
-    featureResponse["Spacing"] = "Open";
+    featureResponse["Tracking"] = "Aperto"; // "Open"
   }
   hhue = Math.floor(R.random_num(0,361));
   var birthColorName = hueToColor(hhue);
-  featureResponse["Birth Color Family"] = hhue+" ("+birthColorName+")";
+  featureResponse["Birth Color Family"] = birthColorName; // hhue+" ("+birthColorName+")";
   var presentColorName = hueToColor((hhue+totalLayers)%360);
-  featureResponse["Present Color Family"] = ((hhue+totalLayers)%360)+" ("+presentColorName+")";
+  featureResponse["Present Color Family"] = presentColorName; // ((hhue+totalLayers)%360)+" ("+presentColorName+")";
 
   rotateXamt = Math.floor(R.random_num(200,1001));
   spinDir = Math.round(R.random_num(0,1));
@@ -120,21 +120,21 @@ function calculateFeatures(tokenData) {
   function hueToColor(hue) {
     var colorName;
     if (hue < 10) {
-      colorName = "Il rosso"; // "Red";
+      colorName = "Rosso"; // "Red";
     } else if (hue < 30) {
-      colorName = "L’arancione"; // "Orange";
+      colorName = "Arancione"; // "Orange";
     } else if (hue < 55) {
-      colorName = "Il giallo"; // "Yellow";
+      colorName = "Giallo"; // "Yellow";
     } else if (hue < 160) {
-      colorName = "Il verde"; // "Green";
+      colorName = "Verde"; // "Green";
     } else if (hue < 240) {
-      colorName = "Il blu"; // "Blue";
+      colorName = "Blu"; // "Blue";
     } else if (hue < 290) {
-      colorName = "Il viola"; // "Purple";
+      colorName = "Viola"; // "Purple";
     } else if (hue < 330) {
-      colorName = "Il rosa"; // "Pink";
+      colorName = "Rosa"; // "Pink";
     } else {
-      colorName = "Il rosso"; // "Red";
+      colorName = "Rosso"; // "Red";
     }
 
     return colorName;
