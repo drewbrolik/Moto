@@ -146,12 +146,14 @@ function drawTireTracks() {
 
 function showStats() {
   background(255,255,255,255);
-  cam.move(0,0,0);
-  rotateY(100);
-  //fill(255,255,255,125);
-  //rect(width*-.5+camMoveX,height*-.5,width*.5,height*.5);
+  
+  // Resetting transformations and camera
+  resetMatrix(); // Resets 2D transformations
+  camera(); // Resets 3D camera to default parameters
+  rotateY(5.66);
+
   color(0);
-  textSize(width / 20); // Size of the text based on screen width
+  textSize(width / 40); // Size of the text based on screen width
   textAlign(LEFT,CENTER);
   textFont(infoFont);
   var textContent = JSON.stringify(info, null, 2);
