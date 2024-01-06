@@ -14,7 +14,8 @@ var
   camMoveY,
   camMoveZ,
   infoFont,
-  info = {};
+  info = {},
+  showingStats = false;
 
 function setup() {
   // initial canvas setup
@@ -72,6 +73,8 @@ function setup() {
   info["Present Hue"] = (hhue+totalLayers)%360;
   info["Initial Camera Offset"] = Math.round(camMoveX)+", "+Math.round(camMoveY)+", "+Math.round(camMoveZ);
   
+  showingStats = false;
+
 }
 
 function draw() {
@@ -96,12 +99,7 @@ function keyTyped() {
     save(invocation+'_layer'+currentLayer+'_'+width+'x'+height+'.png');
   }
 
-  if (key === 'i') {
-    showStats();
-  }
-
-  if (key === 'r') {
-
+  if (key === 'r' || (key === 'i' && showingStats === true)) {    
     // Reset transformations and camera
     resetMatrix(); // Resets 2D transformations
     camera(); // Resets 3D camera to default parameters
@@ -112,6 +110,10 @@ function keyTyped() {
     loop();
     setup();
 
+  }
+
+  if (key === 'i') {
+    showStats();
   }
   
 }
@@ -173,6 +175,8 @@ function showStats() {
   textFont(infoFont);
   var textContent = JSON.stringify(info, null, 2);
   text(textContent+"\n\nR to refresh", width * -.5, height * -.8, width*.9, height*.9); // Position and dimensions of the text
+
+  showingStats = true;
 
 }
 
