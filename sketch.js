@@ -64,13 +64,13 @@ function setup() {
   // expand background color full screen, outside of canvas
   canvasElement.parentElement.style.backgroundColor = backgroundColor;
 
-  info.totalLayers = totalLayers;
-  info.spaceBetweenTracks = Math.round(spaceBetweenTracks);
-  info.rotationAmount = rotateXamt;
-  if (rotateXamt >= 0) { info.rotationDirection = "Clockwise"; } else { info.rotationDirection = "Counter Clockwise"; }
-  info.birthHue = hhue;
-  info.presentHue = (hhue+totalLayers)%360;
-  info.initialCameraOffset = Math.round(camMoveX)+", "+Math.round(camMoveY)+", "+Math.round(camMoveZ);
+  info["Total Layers"] = totalLayers;
+  info["Space Between Tracks"] = Math.round(spaceBetweenTracks);
+  info["Rotation Amount"] = rotateXamt+" radians";
+  if (rotateXamt >= 0) { info["Rotation Direction"] = "Clockwise"; } else { info["Rotation Direction"] = "Counter Clockwise"; }
+  info["Birth Hue"] = hhue;
+  info["Present Hue"] = (hhue+totalLayers)%360;
+  info["Initial Camera Offset"] = Math.round(camMoveX)+", "+Math.round(camMoveY)+", "+Math.round(camMoveZ);
   
 }
 
@@ -98,6 +98,20 @@ function keyTyped() {
 
   if (key === 'i') {
     showStats();
+  }
+
+  if (key === 'r') {
+
+    // Reset transformations and camera
+    resetMatrix(); // Resets 2D transformations
+    camera(); // Resets 3D camera to default parameters
+
+    background(13);
+
+    currentLayer = 1;
+    loop();
+    setup();
+
   }
   
 }
@@ -145,19 +159,20 @@ function drawTireTracks() {
 }
 
 function showStats() {
-  background(255,255,255,255);
+  background(13);
   
-  // Resetting transformations and camera
+  // Reset transformations and camera
   resetMatrix(); // Resets 2D transformations
   camera(); // Resets 3D camera to default parameters
-  rotateY(5.66);
 
-  color(0);
-  textSize(width / 40); // Size of the text based on screen width
+  rotateY(6);
+
+  fill(255,255,255); //80,255,80);
+  textSize(width / 30); // Size of the text based on screen width
   textAlign(LEFT,CENTER);
   textFont(infoFont);
   var textContent = JSON.stringify(info, null, 2);
-  text(textContent, width * -1, height * -1, width * 1, height * 1); // Position and dimensions of the text
+  text(textContent+"\n\nR to refresh", width * -.5, height * -.8, width*.9, height*.9); // Position and dimensions of the text
 
 }
 
