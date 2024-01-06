@@ -65,13 +65,17 @@ function setup() {
   // expand background color full screen, outside of canvas
   canvasElement.parentElement.style.backgroundColor = backgroundColor;
 
-  info["Total Layers"] = totalLayers;
-  info["Space Between Tracks"] = Math.round(spaceBetweenTracks);
-  info["Rotation Amount"] = rotateXamt+" radians";
-  if (rotateXamt >= 0) { info["Rotation Direction"] = "Clockwise"; } else { info["Rotation Direction"] = "Counter Clockwise"; }
+  info["Canvas Width"] = width+" pixels";
+  info["Canvas Height"] = height+" pixels";
+  info["Layers"] = totalLayers;
+  info["Space Between Tracks"] = Math.round(spaceBetweenTracks*blurriness)+" pixels";
+  info["Track Height"] = "";
+  info["Track Width"] = "";
+  info["World Rotation Amount"] = rotateXamt+" radians";
+  if (rotateXamt >= 0) { info["World Rotation Direction"] = "Clockwise"; } else { info["World Rotation Direction"] = "Counter Clockwise"; }
   info["Birth Hue"] = hhue;
   info["Present Hue"] = (hhue+totalLayers)%360;
-  info["Initial Camera Offset"] = Math.round(camMoveX)+", "+Math.round(camMoveY)+", "+Math.round(camMoveZ);
+  info["Initial Camera Offset"] = Math.round(camMoveX)+", "+Math.round(camMoveY)+", "+Math.round(camMoveZ)+" (pixels)";
   
   showingStats = false;
 
@@ -110,9 +114,8 @@ function keyTyped() {
     loop();
     setup();
 
-  }
-
-  if (key === 'i') {
+  } else if (key === 'i' && showingStats === false) {
+    noLoop();
     showStats();
   }
   
@@ -137,6 +140,9 @@ function drawTireTrack(x, y) {
   //let trackHeight = 5;
   let trackHeight = blurriness*5;
   
+  info["Track Width"] = Math.round(trackWidth)+" pixels";
+  info["Track Height"] = Math.round(trackHeight)+" pixels";
+
   for (let i = 0; i < 5; i++) {
     // main
     beginShape();
@@ -173,8 +179,16 @@ function showStats() {
   textSize(width / 30); // Size of the text based on screen width
   textAlign(LEFT,CENTER);
   textFont(infoFont);
-  var textContent = JSON.stringify(info, null, 2);
-  text(textContent+"\n\nR to refresh", width * -.5, height * -.8, width*.9, height*.9); // Position and dimensions of the text
+  
+  // json
+  //var textContent = JSON.stringify(info, null, 2);
+
+  // string
+  var textContent = Object.keys(info)
+                 .map(key => `${key}: ${info[key]}`)
+                 .join('\n');
+
+  text(textContent, width * -.5, height * -.86, width*.9, height*.9); // Position and dimensions of the text
 
   showingStats = true;
 
