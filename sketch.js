@@ -9,7 +9,7 @@ var
   centerY = 0,
   rotateXamt,
   spinDir,
-  blurriness,
+  sscale,
   camMoveX,
   camMoveY,
   camMoveZ,
@@ -44,9 +44,9 @@ function setup() {
   spinDir = Math.round(R.random_num(0,1));
   if (spinDir < .5) { rotateXamt *= -1; }
  
-  blurriness = (width>=height) ? width/1000 : height/1000;
+  sscale = (width>=height) ? width/1000 : height/1000;
 
-  spaceBetweenTracks = blurriness*spaceBetweenTracks;
+  spaceBetweenTracks = sscale*spaceBetweenTracks;
 
   // this is what makes it different outcomes at different screen sizes
   centerX = R.random_num(-width*.5,width*.5),
@@ -68,13 +68,13 @@ function setup() {
   info["Canvas Width"] = width+" pixels";
   info["Canvas Height"] = height+" pixels";
   info["Layers"] = totalLayers;
-  info["Space Between Tracks"] = Math.round(spaceBetweenTracks*blurriness)+" pixels";
+  info["Space Between Tracks"] = Math.round(spaceBetweenTracks*sscale)+" pixels";
   info["Track Height"] = "";
   info["Track Width"] = "";
   info["World Rotation Amount"] = rotateXamt+" radians";
   if (rotateXamt >= 0) { info["World Rotation Direction"] = "Clockwise"; } else { info["World Rotation Direction"] = "Counter Clockwise"; }
   info["Birth Hue"] = hhue;
-  info["Present Hue"] = (hhue+totalLayers)%360;
+  info["Death Hue"] = (hhue+totalLayers)%360;
   info["Initial Camera Offset"] = Math.round(camMoveX)+", "+Math.round(camMoveY)+", "+Math.round(camMoveZ)+" (pixels)";
   
   showingStats = false;
@@ -86,7 +86,7 @@ function draw() {
     noLoop();
   } else {
     stroke("hsb("+hhue+",80%,80%)");
-    strokeWeight(blurriness);
+    strokeWeight(sscale);
     fill("hsb("+hhue+",80%,20%)");
     rotateZ(R.random_num(0,10));
     rotateX(rotateXamt*-1);
@@ -136,9 +136,9 @@ function windowResized() {
 function drawTireTrack(x, y) {
   let trackWidth = R.random_num(10,30); //20;
   //trackWidth = (width>=height) ? width/1663*trackWidth : height/1663*trackWidth;
-  trackWidth = blurriness*trackWidth;
+  trackWidth = sscale*trackWidth;
   //let trackHeight = 5;
-  let trackHeight = blurriness*5;
+  let trackHeight = sscale*5;
   
   info["Track Width"] = Math.round(trackWidth)+" pixels";
   info["Track Height"] = Math.round(trackHeight)+" pixels";
@@ -146,10 +146,10 @@ function drawTireTrack(x, y) {
   for (let i = 0; i < 5; i++) {
     // main
     beginShape();
-    vertex(x,y + blurriness*i * (trackHeight + spaceBetweenTracks));
-    vertex(x+trackWidth,y + blurriness*i * (trackHeight + spaceBetweenTracks)-(spaceBetweenTracks*.5));
-    vertex(x+trackWidth,y + blurriness*i * (trackHeight + spaceBetweenTracks)+trackHeight-(spaceBetweenTracks*.5));
-    vertex(x,y + blurriness*i * (trackHeight + spaceBetweenTracks)+trackHeight);
+    vertex(x,y + sscale*i * (trackHeight + spaceBetweenTracks));
+    vertex(x+trackWidth,y + sscale*i * (trackHeight + spaceBetweenTracks)-(spaceBetweenTracks*.5));
+    vertex(x+trackWidth,y + sscale*i * (trackHeight + spaceBetweenTracks)+trackHeight-(spaceBetweenTracks*.5));
+    vertex(x,y + sscale*i * (trackHeight + spaceBetweenTracks)+trackHeight);
     endShape(CLOSE);
     
   }
@@ -157,11 +157,11 @@ function drawTireTrack(x, y) {
 
 function drawTireTracks() {
   //let spacing = 40; // Spacing between each tire track
-  let spacing = blurriness*40;
+  let spacing = sscale*40;
 
   for (let x = 0; x < width; x += spacing) {
-    drawTireTrack(x+R.random_num(0,width), height / 2 - (blurriness*10));
-    drawTireTrack(x+R.random_num(0,width), height / 2 + (blurriness*30));
+    drawTireTrack(x+R.random_num(0,width), height / 2 - (sscale*10));
+    drawTireTrack(x+R.random_num(0,width), height / 2 + (sscale*30));
   }
   
 }

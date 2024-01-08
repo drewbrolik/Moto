@@ -95,12 +95,12 @@ function calculateFeatures(tokenData) {
   hhue = Math.floor(R.random_num(0,361));
   var birthColorName = hueToColor(hhue);
   featureResponse["Birth Color Family"] = birthColorName; // hhue+" ("+birthColorName+")";
-  var presentColorName = hueToColor((hhue+totalLayers)%360);
-  featureResponse["Present Color Family"] = presentColorName; // ((hhue+totalLayers)%360)+" ("+presentColorName+")";
+  var presentColorName = hueToColor(hhue+((totalLayers-1)%360));
+  featureResponse["Death Color Family"] = presentColorName; // ((hhue+totalLayers)%360)+" ("+presentColorName+")";
 
-  rotateXamt = Math.floor(R.random_num(200,1001));
-  spinDir = Math.round(R.random_num(0,1));
-  if (spinDir < .5) { rotateXamt *= -1; }
+  //rotateXamt = Math.floor(R.random_num(200,1001));
+  //spinDir = Math.round(R.random_num(0,1));
+  //if (spinDir < .5) { rotateXamt *= -1; }
   //featureResponse["Rotate X Amt"] = rotateXamt+"";
 
   //blurriness = R.random_num(.5,1);
