@@ -73,11 +73,6 @@ function calculateFeatures(tokenData) {
     totalLayers,
     spaceBetweenTracks = 10,
     hhue = 0,
-    //centerX = 0,
-    //centerY = 0,
-    rotateXamt,
-    spinDir,
-    blurriness,
     R = new Random();
 
   // set random values for global variables
@@ -94,26 +89,9 @@ function calculateFeatures(tokenData) {
   }
   hhue = Math.floor(R.random_num(0,361));
   var birthColorName = hueToColor(hhue);
-  featureResponse["Birth Color Family"] = birthColorName; // hhue+" ("+birthColorName+")";
-  var presentColorName = hueToColor(hhue+((totalLayers-1)%360));
-  featureResponse["Death Color Family"] = presentColorName; // ((hhue+totalLayers)%360)+" ("+presentColorName+")";
-
-  //rotateXamt = Math.floor(R.random_num(200,1001));
-  //spinDir = Math.round(R.random_num(0,1));
-  //if (spinDir < .5) { rotateXamt *= -1; }
-  //featureResponse["Rotate X Amt"] = rotateXamt+"";
-
-  //blurriness = R.random_num(.5,1);
-  //featureResponse["Blurriness"] = blurriness+"";
-
-  /*var windowWidth = 1000;
-  centerX = R.random_num(-windowWidth*.5,windowWidth*.5),
-  centerY = R.random_num(-windowWidth*.5,windowWidth*.5);
-  camMoveX = R.random_num(windowWidth*-.5,windowWidth*.5);
-  camMoveY = R.random_num(windowWidth*-.5,windowWidth*.5);
-  camMoveZ = R.random_num(windowWidth*-.25,windowWidth*.25);
-
-  featureResponse["Cam Move Z"] = camMoveZ+"";*/
+  featureResponse["Birth Color Family"] = birthColorName;
+  var presentColorName = hueToColor((hhue+totalLayers-1)%360);
+  featureResponse["Death Color Family"] = presentColorName;
   
   return featureResponse;
 

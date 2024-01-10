@@ -74,7 +74,7 @@ function setup() {
   info["World Rotation Amount"] = rotateXamt+" radians";
   if (rotateXamt >= 0) { info["World Rotation Direction"] = "Clockwise"; } else { info["World Rotation Direction"] = "Counter Clockwise"; }
   info["Birth Hue"] = hhue;
-  info["Death Hue"] = (hhue+totalLayers)%360;
+  info["Death Hue"] = (hhue+totalLayers-1)%360;
   info["Initial Camera Offset"] = Math.round(camMoveX)+", "+Math.round(camMoveY)+", "+Math.round(camMoveZ)+" (pixels)";
   
   showingStats = false;
@@ -135,9 +135,7 @@ function windowResized() {
 
 function drawTireTrack(x, y) {
   let trackWidth = R.random_num(10,30); //20;
-  //trackWidth = (width>=height) ? width/1663*trackWidth : height/1663*trackWidth;
   trackWidth = sscale*trackWidth;
-  //let trackHeight = 5;
   let trackHeight = sscale*5;
   
   info["Track Width"] = Math.round(trackWidth)+" pixels";
@@ -156,8 +154,7 @@ function drawTireTrack(x, y) {
 }
 
 function drawTireTracks() {
-  //let spacing = 40; // Spacing between each tire track
-  let spacing = sscale*40;
+  let spacing = sscale*40; // Spacing between each tire track
 
   for (let x = 0; x < width; x += spacing) {
     drawTireTrack(x+R.random_num(0,width), height / 2 - (sscale*10));
@@ -179,9 +176,6 @@ function showStats() {
   textSize(width / 30); // Size of the text based on screen width
   textAlign(LEFT,CENTER);
   textFont(infoFont);
-  
-  // json
-  //var textContent = JSON.stringify(info, null, 2);
 
   // string
   var textContent = Object.keys(info)
