@@ -37,7 +37,7 @@ function setup() {
   R = new Random();
 
   // set random values for global variables  
-  totalLayers = Math.floor(R.random_num(400,601));
+  totalLayers = Math.floor(R.random_num(360,601));
   spaceBetweenTracks = R.random_num(2,41);
   hhue = Math.floor(R.random_num(0,361));
   rotateXamt = Math.floor(R.random_num(200,1001));
@@ -58,7 +58,6 @@ function setup() {
   cam = createCamera();
   cam.move(camMoveX,camMoveY,camMoveZ);
 
-  // background color
   backgroundColor = "rgb(13,13,13)";
   background(backgroundColor);
   

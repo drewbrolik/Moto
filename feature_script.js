@@ -76,7 +76,7 @@ function calculateFeatures(tokenData) {
     R = new Random();
 
   // set random values for global variables
-  totalLayers = Math.floor(R.random_num(400,601));
+  totalLayers = Math.floor(R.random_num(360,601));
   featureResponse["Layers"] = totalLayers+"";
 
   spaceBetweenTracks = R.random_num(2,41);
